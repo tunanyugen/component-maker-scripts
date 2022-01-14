@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "dotenv": "^11.0.0",
+    "uuid": "^8.3.2"
+  },
+  "name": "@tunanyugen/component-maker-scripts",
+  "version": "1.0.0",
+  "main": "component-generator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Scripts for managing component-maker"
+}
