@@ -9,7 +9,7 @@ class PrepareProject {
     compiler.hooks.afterEmit.tap("PrepareProject", (compilation) => {
       // create group folder
       fs.mkdirSync(
-        path.resolve(compiler.context, env.PATH, env.COMPONENT_TYPE, env.GROUP_ID),
+        path.resolve(compiler.context, env.PATH, env.GROUP_ID),
         { recursive: true }
       );
       let files = fs.readdirSync(process.cwd());
@@ -24,7 +24,7 @@ class PrepareProject {
     });
   }
   generateComponent = (compiler, env, componentENV) => {
-    let basePath = path.resolve(compiler.context, env.PATH, env.COMPONENT_TYPE, env.GROUP_ID);
+    let basePath = path.resolve(compiler.context, env.PATH, env.GROUP_ID);
     // create base folder
     fs.mkdirSync(basePath,{ recursive: true});
     // create component folder
@@ -41,7 +41,7 @@ class PrepareProject {
     );
   }
   generateDependencies = (compiler, env) => {
-    let basePath = path.resolve(compiler.context, env.PATH, env.COMPONENT_TYPE, env.GROUP_ID);
+    let basePath = path.resolve(compiler.context, env.PATH, env.GROUP_ID);
     // create base folder
     fs.mkdirSync(basePath,{ recursive: true});
     // generate tsx
@@ -56,7 +56,7 @@ class PrepareProject {
     );
   }
   copyCompiledDependencies = (compiler, env) => {
-    let basePath = path.resolve(compiler.context, env.PATH, env.COMPONENT_TYPE, env.GROUP_ID);
+    let basePath = path.resolve(compiler.context, env.PATH, env.GROUP_ID);
     // create base folder
     fs.mkdirSync(basePath,{ recursive: true});
     // copy js
@@ -76,7 +76,6 @@ class PrepareProject {
     phpContent = phpContent.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
     phpContent = phpContent.replace(/process\.env\.COMPONENT_NAME/gmu, componentENV.COMPONENT_NAME);
     phpContent = phpContent.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, componentENV.COMPONENT_DESCRIPTION);
-    phpContent = phpContent.replace(/process\.env\.COMPONENT_TYPE/gmu, env.COMPONENT_TYPE);
     return phpContent;
   };
   prepareTSX = (compiler) => {
