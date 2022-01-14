@@ -12,5 +12,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "Scripts for managing component-maker"
+  "description": "Scripts for managing component-maker",
+  "bin": {
+    "make-component": "./make-component.js",
+    "setup": "./setup.js"
+  }
 }
