@@ -45,6 +45,6 @@ class process.env.UUID extends ExtendedComponent
      */
     public function render()
     {
-        return view("$this->type.$this->group_id.$this->name.$this->uuid");
+        return view("$this->group_id.$this->name.$this->uuid");
     }
 }
