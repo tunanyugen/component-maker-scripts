@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const process = require('process');
 const readline = require("readline");
 const path = require("path");
 const fs = require("fs");
@@ -10,18 +11,18 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 // remove dist directory
-let dist = path.resolve(__dirname, "dist");
+let dist = path.resolve(process.cwd(), "dist");
 if (fs.existsSync(dist)) {
   fs.rm(dist, { recursive: true });
 }
 rl.question("Component type: ", (type) => {
   let uuid = "c" + uuidv4().replace(/-/gimu, "");
   // create src folder
-  fs.mkdirSync(path.resolve(__dirname, "src"), { recursive: true });
+  fs.mkdirSync(path.resolve(process.cwd(), "src"), { recursive: true });
   // generate env
   try {
     fs.writeFileSync(
-      path.resolve(__dirname, ".env"),
+      path.resolve(process.cwd(), ".env"),
       `GROUP_ID=${uuid}
 COMPONENT_TYPE=${type}
 PATH=dist/final/components`,
@@ -33,7 +34,7 @@ PATH=dist/final/components`,
   // generate scss
   try {
     fs.writeFileSync(
-      path.resolve(__dirname, "src/index.scss"),
+      path.resolve(process.cwd(), "src/index.scss"),
       `.${uuid}{
     // Write your code here
     h1 {
@@ -52,7 +53,7 @@ PATH=dist/final/components`,
   // generate tsx
   try {
     fs.writeFileSync(
-      path.resolve(__dirname, "src/index.tsx"),
+      path.resolve(process.cwd(), "src/index.tsx"),
       `import "./index.scss";
 // Write your code here
 console.log("Hello World!");

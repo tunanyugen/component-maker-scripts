@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+const process = require('process');
 const readline = require('readline');
 const path = require("path");
 const fs = require("fs");
@@ -16,7 +16,7 @@ rl.question("Component name: ", (name) => {
     rl.question("Description: ", (description) => {
         let uuid = "c" + uuidv4().replace(/-/gmui, "");
         // create component folder
-        fs.mkdirSync(path.resolve(__dirname, `src/${name}`));
+        fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`));
         createENV(name, uuid, description);
         createBlade(name, uuid);
         rl.close();
@@ -30,7 +30,7 @@ rl.on('close', function () {
 
 function createENV(name, uuid, description){
     try{
-        let env = path.resolve(__dirname, `.env.${name}`);
+        let env = path.resolve(process.cwd(), `.env.${name}`);
         // create env
         fs.writeFileSync(
             env,
@@ -44,7 +44,7 @@ COMPONENT_DESCRIPTION=${description}`,
 }
 function createBlade(name, uuid){
     try{
-        let blade = path.resolve(__dirname, `src/${name}/index.blade.php`);
+        let blade = path.resolve(process.cwd(), `src/${name}/index.blade.php`);
         // create blade
         fs.writeFileSync(blade,
 `<link rel="stylesheet" href="/main.css">

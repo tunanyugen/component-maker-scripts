@@ -12,10 +12,10 @@ class PrepareProject {
         path.resolve(compiler.context, env.PATH, env.COMPONENT_TYPE, env.GROUP_ID),
         { recursive: true }
       );
-      let files = fs.readdirSync(__dirname);
+      let files = fs.readdirSync(process.cwd());
       files.forEach((file) => {
         if (file.match(/\.env\..*/)){
-          let componentENV = require("dotenv").config({path: path.resolve(__dirname, file)}).parsed;
+          let componentENV = require("dotenv").config({path: path.resolve(process.cwd(), file)}).parsed;
           this.generateComponent(compiler, env, componentENV);
         }
       })
