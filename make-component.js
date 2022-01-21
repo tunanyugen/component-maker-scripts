@@ -18,7 +18,8 @@ rl.question("Component name: ", (name) => {
         // create component folder
         fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`));
         createENV(name, uuid, description);
-        createBlade(name, uuid);
+        createBlade(name, uuid, description);
+        createComponent(name, uuid, description);
         rl.close();
     })
 })
@@ -32,28 +33,37 @@ function createENV(name, uuid, description){
     try{
         let env = path.resolve(process.cwd(), `.env.${name}`);
         // create env
-        fs.writeFileSync(
-            env,
-`UUID=${uuid}
-COMPONENT_NAME=${name}
-COMPONENT_DESCRIPTION=${description}`,
-            "utf8");
+        let content = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
+        content = content.replace(/process\.env\.UUID/gmu, uuid);
+        content = content.replace(/process\.env\.COMPONENT_NAME/gmu, name);
+        content = content.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, description);
+        fs.writeFileSync(env, content, "utf8");
     } catch (err){
         throw err;
     }
 }
-function createBlade(name, uuid){
+function createBlade(name, uuid, description){
     try{
         let blade = path.resolve(process.cwd(), `src/${name}/index.blade.php`);
         // create blade
-        fs.writeFileSync(blade,
-`<link rel="stylesheet" href="/main.css">
-<div class="${env.GROUP_ID}" id="${uuid}">
-    <!-- Write your code here -->
-    <h1>{{$greetings}}</h1>
-    <!-- Write your code here -->
-</div>
-<script src="/main.js"></script>`, "utf8");
+        let content = fs.readFileSync(path.resolve(__dirname, "template/index.blade.php"), "utf8");
+        content = content.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
+        content = content.replace(/process\.env\.UUID/gmu, env.uuid);
+        fs.writeFileSync(blade, content, "utf8");
+    } catch (err){
+        throw err;
+    }
+}
+function createComponent(name, uuid, description){
+    try{
+        let component = path.resolve(process.cwd(), `src/${name}/index.blade.php`);
+        // create component
+        let content = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
+        content = content.replace(/process\.env\.UUID/gmu, uuid);
+        content = content.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
+        content = content.replace(/process\.env\.COMPONENT_NAME/gmu, name);
+        content = content.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, description);
+        fs.writeFileSync(component, content, "utf8");
     } catch (err){
         throw err;
     }

@@ -71,7 +71,7 @@ class PrepareProject {
     )
   }
   preparePHP = (compiler, env, componentENV) => {
-    let phpContent = fs.readFileSync(path.resolve(__dirname, "component/component.txt"), "utf8");
+    let phpContent = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
     phpContent = phpContent.replace(/process\.env\.UUID/gmu, componentENV.UUID);
     phpContent = phpContent.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
     phpContent = phpContent.replace(/process\.env\.COMPONENT_NAME/gmu, componentENV.COMPONENT_NAME);
