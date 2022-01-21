@@ -20,6 +20,8 @@ rl.question("Component name: ", (name) => {
         createENV(name, uuid, description);
         createBlade(name, uuid, description);
         createController(name, uuid, description);
+        addApi(name, uuid, description);
+        addRoute(name, uuid, description);
         rl.close();
     })
 })
@@ -65,6 +67,28 @@ function createController(name, uuid, description){
         content = content.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, description);
         fs.writeFileSync(component, content, "utf8");
     } catch (err){
+        throw err;
+    }
+}
+function addRoute(name, uuid, description){
+    try{
+        let web = path.resolve(process.cwd, "routes/web.php");
+        let webContent = fs.readFileSync(web, "utf8");
+        let routesRegex = new RegExp("(\\$routes ? = \\[[^\\]]*)");
+        webContent = webContent.replace(routesRegex, `"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index"`)
+        fs.writeFileSync(web, webContent, "utf8");
+    } catch(err){
+        throw err;
+    }
+}
+function addApi(name, uuid, description){
+    try{
+        let web = path.resolve(process.cwd, "routes/web.php");
+        let webContent = fs.readFileSync(web, "utf8");
+        let apiRegex = new RegExp("(\\$apis ? = \\[[^\\]]*)");
+        webContent = webContent.replace(apiRegex, `"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api"`)
+        fs.writeFileSync(web, webContent, "utf8");
+    } catch(err){
         throw err;
     }
 }
