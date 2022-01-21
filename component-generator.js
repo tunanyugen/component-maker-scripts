@@ -7,6 +7,11 @@ class PrepareProject {
   apply(compiler) {
     // Specify the event hook to attach to
     compiler.hooks.afterEmit.tap("PrepareProject", (compilation) => {
+      // delete dist folder
+      let dist = path.resolve(process.cwd(), "dist");
+      if (fs.existsSync(dist)){
+        fs.rmdirSync(dist, { recursive: true});
+      }
       // create group folder
       fs.mkdirSync(
         path.resolve(compiler.context, env.PATH, env.GROUP_ID),
