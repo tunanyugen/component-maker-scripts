@@ -33,7 +33,7 @@ function createENV(name, uuid, description){
     try{
         let env = path.resolve(process.cwd(), `.env.${name}`);
         // create env
-        let content = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
+        let content = fs.readFileSync(path.resolve(__dirname, "template/.env"), "utf8");
         content = content.replace(/process\.env\.UUID/gmu, uuid);
         content = content.replace(/process\.env\.COMPONENT_NAME/gmu, name);
         content = content.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, description);
@@ -56,7 +56,7 @@ function createBlade(name, uuid, description){
 }
 function createComponent(name, uuid, description){
     try{
-        let component = path.resolve(process.cwd(), `src/${name}/index.blade.php`);
+        let component = path.resolve(process.cwd(), `src/${name}/${name}Controller.php`);
         // create component
         let content = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
         content = content.replace(/process\.env\.UUID/gmu, uuid);
