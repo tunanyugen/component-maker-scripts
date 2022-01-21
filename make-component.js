@@ -43,61 +43,66 @@ rl.on('close', function () {
 
 function createENV(name, uuid, description){
     try{
-        let env = path.resolve(process.cwd(), `.env.${name}`);
+        let finalPath = path.resolve(process.cwd(), `.env.${name}`);
+        if (fs.existsSync(finalPath)){ return }
         // create env
         let content = fs.readFileSync(path.resolve(__dirname, "template/.env"), "utf8");
         content = content.replace(/process\.env\.UUID/gmu, uuid);
         content = content.replace(/process\.env\.COMPONENT_NAME/gmu, name);
         content = content.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, description);
-        fs.writeFileSync(env, content, "utf8");
+        fs.writeFileSync(finalPath, content, "utf8");
     } catch (err){
         throw err;
     }
 }
 function createBlade(name, uuid, description){
     try{
-        let blade = path.resolve(process.cwd(), `src/${name}/index.blade.php`);
+        let finalPath = path.resolve(process.cwd(), `src/${name}/index.blade.php`);
+        if (fs.existsSync(finalPath)){ return }
         // create blade
         let content = fs.readFileSync(path.resolve(__dirname, "template/index.blade.php"), "utf8");
         content = content.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
         content = content.replace(/process\.env\.UUID/gmu, env.uuid);
-        fs.writeFileSync(blade, content, "utf8");
+        fs.writeFileSync(finalPath, content, "utf8");
     } catch (err){
         throw err;
     }
 }
 function createController(name, uuid, description){
     try{
-        let component = path.resolve(process.cwd(), `src/${name}/${name}.php`);
+        let finalPath = path.resolve(process.cwd(), `src/${name}/${name}.php`);
+        if (fs.existsSync(finalPath)){ return }
         // create component
         let content = fs.readFileSync(path.resolve(__dirname, "template/controller.php"), "utf8");
         content = content.replace(/process\.env\.UUID/gmu, uuid);
         content = content.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
         content = content.replace(/process\.env\.COMPONENT_NAME/gmu, name);
         content = content.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, description);
-        fs.writeFileSync(component, content, "utf8");
+        fs.writeFileSync(finalPath, content, "utf8");
     } catch (err){
         throw err;
     }
 }
 function addApi(name, uuid, description){
     try{
-        let web = path.resolve(process.cwd(), "routes/web.php");
-        let webContent = fs.readFileSync(web, "utf8");
+        let finalPath = path.resolve(process.cwd(), "routes/web.php");
+        if (fs.existsSync(finalPath)){ return }
+        let webContent = fs.readFileSync(finalPath, "utf8");
         let apiRegex = new RegExp("(\\$apis ? = \\[[^\\]]*)");
         webContent = webContent.replace(apiRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api",\n\t\t`)
-        fs.writeFileSync(web, webContent, "utf8");
+        fs.writeFileSync(finalPath, webContent, "utf8");
     } catch(err){
         throw err;
     }
 }
 function addRoute(name, uuid, description){
     try{
-        let web = path.resolve(process.cwd(), "routes/web.php");
-        let webContent = fs.readFileSync(web, "utf8");
+        let finalPath = path.resolve(process.cwd(), "routes/web.php");
+        if (fs.existsSync(finalPath)){ return }
+        let webContent = fs.readFileSync(finalPath, "utf8");
         let routesRegex = new RegExp("(\\$routes ? = \\[[^\\]]*)");
         webContent = webContent.replace(routesRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index",\n\t`)
-        fs.writeFileSync(web, webContent, "utf8");
+        fs.writeFileSync(finalPath, webContent, "utf8");
     } catch(err){
         throw err;
     }
