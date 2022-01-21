@@ -74,7 +74,7 @@ class PrepareProject {
     let variablesRegex = new RegExp("protected array \$variables[^;]*.");
     let inputTypesRegex = new RegExp("protected array \$input_types[^;]*.");
     let phpContent = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
-    let controllerContent = fs.readFileSync(path.resolve(process.cwd(), `src/${componentENV.COMPONENT_NAME}/${componentENV.COMPONENT_NAME}.php`));
+    let controllerContent = fs.readFileSync(path.resolve(process.cwd(), `src/${componentENV.COMPONENT_NAME}/${componentENV.COMPONENT_NAME}.php`), "utf8");
     let variables = controllerContent.match(variablesRegex)[0];
     let inputTypes = controllerContent.match(inputTypesRegex)[0];
 
