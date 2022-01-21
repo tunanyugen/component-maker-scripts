@@ -75,7 +75,7 @@ function addRoute(name, uuid, description){
         let web = path.resolve(process.cwd, "routes/web.php");
         let webContent = fs.readFileSync(web, "utf8");
         let routesRegex = new RegExp("(\\$routes ? = \\[[^\\]]*)");
-        webContent = webContent.replace(routesRegex, `"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index"`)
+        webContent = webContent.replace(routesRegex, `$1\t"\t${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index"`)
         fs.writeFileSync(web, webContent, "utf8");
     } catch(err){
         throw err;
@@ -86,7 +86,7 @@ function addApi(name, uuid, description){
         let web = path.resolve(process.cwd(), "routes/web.php");
         let webContent = fs.readFileSync(web, "utf8");
         let apiRegex = new RegExp("(\\$apis ? = \\[[^\\]]*)");
-        webContent = webContent.replace(apiRegex, `"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api"`)
+        webContent = webContent.replace(apiRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api"`)
         fs.writeFileSync(web, webContent, "utf8");
     } catch(err){
         throw err;
