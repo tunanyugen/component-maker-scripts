@@ -13,13 +13,13 @@ const rl = readline.createInterface({
 
 // asking questions
 rl.question("Component name: ", (name) => {
+    if (!name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
+        console.log(`Wrong name format!`);
+        console.log(`Name regular expression: ^[a-zA-Z][a-zA-Z0-9]*$`);
+        console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
+        rl.rollback();
+    }
     rl.question("Description: ", (description) => {
-        if (!name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
-            console.log(`Wrong name format!`);
-            console.log(`Name regular expression: ^[a-zA-Z][a-zA-Z0-9]*$`);
-            console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
-            return rl.close();
-        }
         // Capitalize first letter of name
         name = name.charAt(0).toUpperCase() + name.slice(1);
         // Generate valid uuid
