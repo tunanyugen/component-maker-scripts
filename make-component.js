@@ -19,7 +19,7 @@ rl.question("Component name: ", (name) => {
         fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`));
         createENV(name, uuid, description);
         createBlade(name, uuid, description);
-        createComponent(name, uuid, description);
+        createController(name, uuid, description);
         rl.close();
     })
 })
@@ -54,11 +54,11 @@ function createBlade(name, uuid, description){
         throw err;
     }
 }
-function createComponent(name, uuid, description){
+function createController(name, uuid, description){
     try{
         let component = path.resolve(process.cwd(), `src/${name}/${name}Controller.php`);
         // create component
-        let content = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
+        let content = fs.readFileSync(path.resolve(__dirname, "template/controller.php"), "utf8");
         content = content.replace(/process\.env\.UUID/gmu, uuid);
         content = content.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
         content = content.replace(/process\.env\.COMPONENT_NAME/gmu, name);
