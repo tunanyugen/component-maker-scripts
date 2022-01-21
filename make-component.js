@@ -15,6 +15,7 @@ const rl = readline.createInterface({
 rl.question("Component name: ", (name) => {
     let validName = false;
     while(!validName){
+        rl.pause();
         rl.question("Component name: ", (name1) => {
             if (!name1.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
                 console.log(`Wrong name format!`);
@@ -24,6 +25,7 @@ rl.question("Component name: ", (name) => {
                 validName = true;
                 name = name1;
             }
+            rl.resume();
         })
     }
     rl.question("Description: ", (description) => {
