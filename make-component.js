@@ -14,7 +14,7 @@ const rl = readline.createInterface({
 // asking questions
 rl.question("Component name: ", (name) => {
     // validate name
-    if (!name1.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
+    if (!name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
         console.log(`Wrong name format!`);
         console.log(`Name regular expression: ^[a-zA-Z][a-zA-Z0-9]*$`);
         console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
