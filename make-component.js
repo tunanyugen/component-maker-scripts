@@ -20,6 +20,9 @@ rl.question("Component name: ", (name) => {
             console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
             return rl.close();
         }
+        // Capitalize first letter of name
+        name[0] = name[0].toUpperCase();
+        // Generate valid uuid
         let uuid = "c" + uuidv4().replace(/-/gmui, "");
         // create component folder
         fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`), { recursive: true});
