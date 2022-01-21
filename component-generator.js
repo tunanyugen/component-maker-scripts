@@ -71,11 +71,19 @@ class PrepareProject {
     )
   }
   preparePHP = (compiler, env, componentENV) => {
+    let variablesRegex = new RegExp("protected array \$variables[^;]*.");
+    let inputTypesRegex = new RegExp("protected array \$input_types[^;]*.");
     let phpContent = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
+    let controllerContent = fs.readFileSync(path.resolve(process.cwd(), `src/${componentENV.COMPONENT_NAME}/${componentENV.COMPONENT_NAME}.php`));
+    let variables = controllerContent.match(variablesRegex)[0];
+    let inputTypes = controllerContent.match(inputTypesRegex)[0];
+
     phpContent = phpContent.replace(/process\.env\.UUID/gmu, componentENV.UUID);
     phpContent = phpContent.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
     phpContent = phpContent.replace(/process\.env\.COMPONENT_NAME/gmu, componentENV.COMPONENT_NAME);
     phpContent = phpContent.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, componentENV.COMPONENT_DESCRIPTION);
+    phpContent = phpContent.replace(variablesRegex, variables);
+    phpContent = phpContent.replace(inputTypesRegex, inputTypes);
     return phpContent;
   };
   prepareTSX = (compiler) => {
