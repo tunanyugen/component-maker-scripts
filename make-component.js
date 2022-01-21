@@ -83,7 +83,7 @@ function addRoute(name, uuid, description){
 }
 function addApi(name, uuid, description){
     try{
-        let web = path.resolve(process.cwd, "routes/web.php");
+        let web = path.resolve(process.cwd(), "routes/web.php");
         let webContent = fs.readFileSync(web, "utf8");
         let apiRegex = new RegExp("(\\$apis ? = \\[[^\\]]*)");
         webContent = webContent.replace(apiRegex, `"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api"`)
