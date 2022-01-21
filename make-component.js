@@ -86,7 +86,6 @@ function createController(name, uuid, description){
 function addApi(name, uuid, description){
     try{
         let finalPath = path.resolve(process.cwd(), "routes/web.php");
-        if (fs.existsSync(finalPath)){ return }
         let webContent = fs.readFileSync(finalPath, "utf8");
         let apiRegex = new RegExp("(\\$apis ? = \\[[^\\]]*)");
         webContent = webContent.replace(apiRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api",\n\t\t`)
@@ -98,7 +97,6 @@ function addApi(name, uuid, description){
 function addRoute(name, uuid, description){
     try{
         let finalPath = path.resolve(process.cwd(), "routes/web.php");
-        if (fs.existsSync(finalPath)){ return }
         let webContent = fs.readFileSync(finalPath, "utf8");
         let routesRegex = new RegExp("(\\$routes ? = \\[[^\\]]*)");
         webContent = webContent.replace(routesRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index",\n\t`)
