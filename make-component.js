@@ -86,7 +86,7 @@ function addRoute(name, uuid, description){
         let web = path.resolve(process.cwd(), "routes/web.php");
         let webContent = fs.readFileSync(web, "utf8");
         let routesRegex = new RegExp("(\\$routes ? = \\[[^\\]]*)");
-        webContent = webContent.replace(routesRegex, `$1\t"\t${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index",\n\t`)
+        webContent = webContent.replace(routesRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index",\n\t`)
         fs.writeFileSync(web, webContent, "utf8");
     } catch(err){
         throw err;
