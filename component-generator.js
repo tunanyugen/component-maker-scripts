@@ -10,7 +10,7 @@ class PrepareProject {
       // delete dist folder
       let dist = path.resolve(process.cwd(), "dist");
       if (fs.existsSync(dist)){
-        fs.rmdirSync(dist, { recursive: true});
+        fs.rmSync(dist, { recursive: true});
       }
       // create group folder
       fs.mkdirSync(
