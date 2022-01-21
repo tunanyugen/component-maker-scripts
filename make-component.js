@@ -56,7 +56,7 @@ function createBlade(name, uuid, description){
 }
 function createController(name, uuid, description){
     try{
-        let component = path.resolve(process.cwd(), `src/${name}/${name}Controller.php`);
+        let component = path.resolve(process.cwd(), `src/${name}/${name}.php`);
         // create component
         let content = fs.readFileSync(path.resolve(__dirname, "template/controller.php"), "utf8");
         content = content.replace(/process\.env\.UUID/gmu, uuid);
