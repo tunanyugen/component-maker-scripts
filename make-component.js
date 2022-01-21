@@ -13,11 +13,18 @@ const rl = readline.createInterface({
 
 // asking questions
 rl.question("Component name: ", (name) => {
-    if (!name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
-        console.log(`Wrong name format!`);
-        console.log(`Name regular expression: ^[a-zA-Z][a-zA-Z0-9]*$`);
-        console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
-        rl.rollback();
+    let validName = false;
+    while(!validName){
+        rl.question("Component name: ", (name1) => {
+            if (!name1.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
+                console.log(`Wrong name format!`);
+                console.log(`Name regular expression: ^[a-zA-Z][a-zA-Z0-9]*$`);
+                console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
+            } else {
+                validName = true;
+                name = name1;
+            }
+        })
     }
     rl.question("Description: ", (description) => {
         // Capitalize first letter of name
