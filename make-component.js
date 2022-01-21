@@ -37,7 +37,7 @@ rl.question("Component name: ", (name) => {
 })
 
 rl.on('close', function () {
-  console.log('\nNew component created!');
+  console.log('\nFinished');
   process.exit(0);
 });
 
