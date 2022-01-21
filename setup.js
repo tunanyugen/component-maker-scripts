@@ -26,33 +26,22 @@ PATH=dist/final/components`,
 }
 // generate scss
 try {
-  fs.writeFileSync(
-    path.resolve(process.cwd(), "src/index.scss"),
-    `.${uuid}{
-    // Write your code here
-    h1 {
-        width: max-content;
-        background: linear-gradient(90deg, rgba(237,102,102,1) 0%, rgba(161,164,94,1) 33%, rgba(136,123,141,1) 56%, rgba(192,87,102,1) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    // Write your code here
-}`,
-    "utf8"
-  );
+  let content = fs.readFileSync(path.resolve(__dirname, "template/index.scss"), "utf8");
+  content = content.replace(/process\.env\.GROUP_ID/gmu, uuid);
+  fs.writeFile(path.resolve(process.cwd(), "src/index.scss"), content, "utf8");
 } catch (err) {
   throw err;
 }
 // generate tsx
 try {
-  fs.writeFileSync(
-    path.resolve(process.cwd(), "src/index.tsx"),
-    `import "./index.scss";
-// Write your code here
-console.log("Hello World!");
-// Write your code here`,
-    "utf8"
-  );
+  let content = fs.readFileSync(path.resolve(__dirname, "template/index.tsx"), "utf8");
+  fs.writeFile(path.resolve(process.cwd(), "src/index.tsx"), content, "utf8");
+} catch (err) {
+  throw err;
+}
+// generate render method
+try {
+  fs.writeFile(path.resolve(process.cwd(), "render-method.php"), "", "utf8");
 } catch (err) {
   throw err;
 }
