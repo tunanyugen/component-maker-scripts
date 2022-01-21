@@ -28,20 +28,20 @@ PATH=dist/final/components`,
 try {
   let content = fs.readFileSync(path.resolve(__dirname, "template/index.scss"), "utf8");
   content = content.replace(/process\.env\.GROUP_ID/gmu, uuid);
-  fs.writeFile(path.resolve(process.cwd(), "src/index.scss"), content, "utf8");
+  fs.writeFileSync(path.resolve(process.cwd(), "src/index.scss"), content, "utf8");
 } catch (err) {
   throw err;
 }
 // generate tsx
 try {
   let content = fs.readFileSync(path.resolve(__dirname, "template/index.tsx"), "utf8");
-  fs.writeFile(path.resolve(process.cwd(), "src/index.tsx"), content, "utf8");
+  fs.writeFileSync(path.resolve(process.cwd(), "src/index.tsx"), content, "utf8");
 } catch (err) {
   throw err;
 }
 // generate render method
 try {
-  fs.writeFile(path.resolve(process.cwd(), "render-method.php"), "", "utf8");
+  fs.writeFileSync(path.resolve(process.cwd(), "render-method.php"), "", "utf8");
 } catch (err) {
   throw err;
 }
