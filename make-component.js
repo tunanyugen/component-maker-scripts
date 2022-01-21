@@ -16,7 +16,7 @@ rl.question("Component name: ", (name) => {
     rl.question("Description: ", (description) => {
         let uuid = "c" + uuidv4().replace(/-/gmui, "");
         // create component folder
-        fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`));
+        fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`), { recursive: true});
         createENV(name, uuid, description);
         createBlade(name, uuid, description);
         createController(name, uuid, description);
