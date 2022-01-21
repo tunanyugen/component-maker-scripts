@@ -20,6 +20,11 @@ class process.env.COMPONENT_NAME
     // textarea: for writing notes
     protected array $input_types = [];
     
+    public function api(){
+        return json_encode([
+            "message" => "API is working!"
+        ]);
+    }
 	public function index()
 	{
 		$blade = new Blade([__DIR__.'/../../src/process.env.COMPONENT_NAME'], __DIR__.'/../../cache');
