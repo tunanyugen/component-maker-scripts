@@ -21,7 +21,7 @@ rl.question("Component name: ", (name) => {
             return rl.close();
         }
         // Capitalize first letter of name
-        name[0] = name[0].toUpperCase();
+        name = name.charAt(0).toUpperCase() + name.slice(1);
         // Generate valid uuid
         let uuid = "c" + uuidv4().replace(/-/gmui, "");
         // create component folder
