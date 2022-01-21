@@ -11,9 +11,7 @@ class process.env.UUID extends ExtendedComponent
     protected string $name = "process.env.COMPONENT_NAME";
     protected string $description = "process.env.COMPONENT_DESCRIPTION";
     // variables used in pug template
-    protected array $variables = [
-        
-    ];
+    protected array $variables = [];
     // define which type of input each variable uses
     // AVAILABLE TYPES
     // ckeditor: for writing articles, large content
@@ -25,9 +23,7 @@ class process.env.UUID extends ExtendedComponent
     // sortable: for a draggable sorting input
     // tag-input: for selecting multiple tags
     // textarea: for writing notes
-    protected array $input_types = [
-        
-    ];
+    protected array $input_types = [];
     /**
      * Create a new component instance.
      *
