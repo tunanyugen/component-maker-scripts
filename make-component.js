@@ -75,7 +75,7 @@ function addApi(name, uuid, description){
         let web = path.resolve(process.cwd(), "routes/web.php");
         let webContent = fs.readFileSync(web, "utf8");
         let apiRegex = new RegExp("(\\$apis ? = \\[[^\\]]*)");
-        webContent = webContent.replace(apiRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api",\n\t`)
+        webContent = webContent.replace(apiRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api",\n\t\t`)
         fs.writeFileSync(web, webContent, "utf8");
     } catch(err){
         throw err;
