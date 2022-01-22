@@ -97,6 +97,6 @@ function addRoute(name, uuid, description){
 }
 
 function getArgument(name){
-    if (!args.name){ throw `Missing variable ${name}`}
+    if (args[name] == null || args[name] == undefined){ throw `Missing variable ${name}`}
     return args[name];
 }
