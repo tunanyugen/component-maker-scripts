@@ -1,45 +1,35 @@
 #!/usr/bin/env node
+const args = require('minimist')(process.argv.slice(2))
 const process = require('process');
-const readline = require('readline');
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
 const env = require("dotenv").config().parsed;
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+let name = getArgument("name");;
+let description = getArgument("description");
 
-// asking questions
-rl.question("Component name: ", (name) => {
-    // validate name
-    if (!name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
-        console.log(`Wrong name format!`);
-        console.log(`Name regular expression: ^[a-zA-Z][a-zA-Z0-9]*$`);
-        console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
-        return rl.close();
-    }
-    rl.question("Description: ", (description) => {
-        // Capitalize first letter of name
-        name = name.charAt(0).toUpperCase() + name.slice(1);
-        // Generate valid uuid
-        let uuid = "c" + uuidv4().replace(/-/gmui, "");
-        // create component folder
-        fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`), { recursive: true});
-        createENV(name, uuid, description);
-        createBlade(name, uuid, description);
-        createController(name, uuid, description);
-        addApi(name, uuid, description);
-        addRoute(name, uuid, description);
-        rl.close();
-    })
-})
+// validate name
+if (!name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
+    console.log(`Wrong name format!`);
+    console.log(`Name regular expression: ^[a-zA-Z][a-zA-Z0-9]*$`);
+    console.log(`Example: HomeSlider, homeSlider, homeSlider01, home01Slider`);
+    throw "ERROR!";
+}
 
-rl.on('close', function () {
-  console.log('\nFinished');
-  process.exit(0);
-});
+// Capitalize first letter of name
+name = name.charAt(0).toUpperCase() + name.slice(1);
+// Generate valid uuid
+let uuid = "c" + uuidv4().replace(/-/gmui, "");
+// create component folder
+fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`), { recursive: true});
+createENV(name, uuid, description);
+createBlade(name, uuid, description);
+createController(name, uuid, description);
+addApi(name, uuid, description);
+addRoute(name, uuid, description);
+
+console.log("FINISHED");
 
 function createENV(name, uuid, description){
     try{
@@ -87,7 +77,6 @@ function addApi(name, uuid, description){
     try{
         let finalPath = path.resolve(process.cwd(), "routes/web.php");
         let webContent = fs.readFileSync(finalPath, "utf8");
-        if (webContent.match(`"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api"`)){ return }
         let apiRegex = new RegExp("(\\$apis ? = \\[[^\\]]*)");
         webContent = webContent.replace(apiRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@api",\n\t\t`)
         fs.writeFileSync(finalPath, webContent, "utf8");
@@ -99,11 +88,15 @@ function addRoute(name, uuid, description){
     try{
         let finalPath = path.resolve(process.cwd(), "routes/web.php");
         let webContent = fs.readFileSync(finalPath, "utf8");
-        if (webContent.match(`"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index"`)){ return }
         let routesRegex = new RegExp("(\\$routes ? = \\[[^\\]]*)");
         webContent = webContent.replace(routesRegex, `$1\t"${name.toLowerCase()}" => "Src\\\\${name}\\\\${name}@index",\n\t`)
         fs.writeFileSync(finalPath, webContent, "utf8");
     } catch(err){
         throw err;
     }
+}
+
+function getArgument(name){
+    if (!args.name){ throw `Missing variable ${name}`}
+    return args[name];
 }
