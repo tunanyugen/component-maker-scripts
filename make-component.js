@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const args = require('minimist')(process.argv.slice(2))
 const process = require('process');
+const args = require('minimist')(process.argv.slice(2))
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
