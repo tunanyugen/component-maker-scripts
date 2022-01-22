@@ -52,7 +52,7 @@ function createBlade(name, uuid, description){
         // create blade
         let content = fs.readFileSync(path.resolve(__dirname, "template/index.blade.php"), "utf8");
         content = content.replace(/process\.env\.GROUP_ID/gmu, env.GROUP_ID);
-        content = content.replace(/process\.env\.UUID/gmu, env.uuid);
+        content = content.replace(/process\.env\.UUID/gmu, uuid);
         fs.writeFileSync(finalPath, content, "utf8");
     } catch (err){
         throw err;
