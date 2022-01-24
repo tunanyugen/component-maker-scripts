@@ -47,9 +47,10 @@ try {
 }
 // generate render method
 try {
+  let content = fs.readFileSync(path.resolve(__dirname, "template/render-method.php"), "utf8");
   let finalPath = path.resolve(process.cwd(), "render-method.php");
   if (!fs.existsSync(finalPath)){
-    fs.writeFileSync(finalPath, "", "utf8");
+    fs.writeFileSync(finalPath, content, "utf8");
   }
 } catch (err) {
   throw err;
