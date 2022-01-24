@@ -78,7 +78,9 @@ class PrepareProject {
   preparePHP = (compiler, env, componentENV) => {
     let variablesRegex = new RegExp("protected array \\$variables[^;]*.");
     let inputTypesRegex = new RegExp("protected array \\$input_types[^;]*.");
+    let renderRegex = new RegExp("(public function render.*\{)(.*?)(\})", "s");
     let phpContent = fs.readFileSync(path.resolve(__dirname, "template/component.php"), "utf8");
+    let renderContent = fs.readFileSync(path.resolve(__dirname, "render-method.php"), "utf8");
     let controllerContent = fs.readFileSync(path.resolve(process.cwd(), `src/${componentENV.COMPONENT_NAME}/${componentENV.COMPONENT_NAME}.php`), "utf8");
     let variables = controllerContent.match(variablesRegex)[0];
     let inputTypes = controllerContent.match(inputTypesRegex)[0];
@@ -89,6 +91,7 @@ class PrepareProject {
     phpContent = phpContent.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, componentENV.COMPONENT_DESCRIPTION);
     phpContent = phpContent.replace(variablesRegex, variables);
     phpContent = phpContent.replace(inputTypesRegex, inputTypes);
+    phpContent = phpContent.replace(renderRegex, `$1${renderContent.match(renderRegex[2])}$3`);
     return phpContent;
   };
   prepareTSX = (compiler) => {
