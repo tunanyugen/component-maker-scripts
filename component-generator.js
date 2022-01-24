@@ -93,7 +93,7 @@ class PrepareProject {
     phpContent = phpContent.replace(variablesRegex, variables);
     phpContent = phpContent.replace(inputTypesRegex, inputTypes);
     phpContent = phpContent.replace(renderRegex, `$1${renderContent.match(renderRegex)[2]}$3`);
-    phpContent = phpContent.replace(/(namespace.*)/, `$1\n${renderContent.match(useRegex).join("\\n")}`);
+    phpContent = phpContent.replace(/(namespace.*)/, `$1\n${renderContent.match(useRegex).join("\n")}`);
     return phpContent;
   };
   prepareTSX = (compiler) => {
