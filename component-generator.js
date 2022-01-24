@@ -91,7 +91,7 @@ class PrepareProject {
     phpContent = phpContent.replace(/process\.env\.COMPONENT_DESCRIPTION/gmu, componentENV.COMPONENT_DESCRIPTION);
     phpContent = phpContent.replace(variablesRegex, variables);
     phpContent = phpContent.replace(inputTypesRegex, inputTypes);
-    phpContent = phpContent.replace(renderRegex, `$1${renderContent.match(renderRegex[2])}$3`);
+    phpContent = phpContent.replace(renderRegex, `$1${renderContent.match(renderRegex)[2]}$3`);
     return phpContent;
   };
   prepareTSX = (compiler) => {
