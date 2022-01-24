@@ -21,6 +21,11 @@ if (!name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)){
 name = name.charAt(0).toUpperCase() + name.slice(1);
 // Generate valid uuid
 let uuid = "c" + uuidv4().replace(/-/gmui, "");
+// get current uuid if component exists
+let envPath = path.resolve(process.cwd(), `.env.${name}`);
+if (fs.existsSync(envPath)){
+    uuid = fs.readFileSync(envPath, "utf8").match(/UUID=(.*)/)[1];
+}
 // create component folder
 fs.mkdirSync(path.resolve(process.cwd(), `src/${name}`), { recursive: true});
 createENV(name, uuid, description);
